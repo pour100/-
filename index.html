@@ -1,497 +1,268 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHARMA STRATEGY | Interactive Web Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* 1. CORE BRANDING & VARIABLES */
-        :root {
-            --primary-green: #004D40;
-            --accent-green: #00796B;
-            --light-mint: #F1F8F6;
-            --border-green: #B2DFDB;
-            --text-main: #212121;
-            --text-secondary: #546E7A;
-            --white: #FFFFFF;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>김민준 | 프로필</title>
+  <style>
+    :root {
+      --bg: #f3f5f9;
+      --card: #ffffff;
+      --primary: #1f3a8a;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
+    }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background-color: #FFFFFF; 
-            font-family: 'Calibri', 'Segoe UI', sans-serif;
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
+    * { box-sizing: border-box; }
 
-        /* 2. INTERACTIVE NAVIGATION */
-        nav {
-            background-color: rgba(0, 77, 64, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 0 10%;
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 2000;
-            transition: var(--transition);
-        }
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--white);
-            font-weight: bold;
-            font-size: 22px;
-            cursor: pointer;
-        }
-        .nav-links {
-            display: flex;
-            height: 100%;
-        }
-        .nav-links a {
-            color: #B2DFDB;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            height: 100%;
-            transition: var(--transition);
-            border-bottom: 3px solid transparent;
-        }
-        .nav-links a:hover { 
-            color: var(--white); 
-            background: rgba(255,255,255,0.05);
-            border-bottom: 3px solid var(--border-green);
-        }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top right, #e0e7ff 0%, var(--bg) 45%);
+      min-height: 100vh;
+      padding: 36px 16px;
+    }
 
-        /* 3. DYNAMIC HERO SECTION */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 77, 64, 0.8), rgba(0, 77, 64, 0.9)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070');
-            background-size: cover;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-            padding: 0 10%;
-        }
-        .hero h1 { 
-            font-size: 64px; 
-            margin-bottom: 20px; 
-            font-weight: 800;
-            animation: fadeInUp 1s ease;
-        }
-        .hero p { 
-            font-size: 22px; 
-            max-width: 800px; 
-            opacity: 0.9;
-            animation: fadeInUp 1.2s ease;
-        }
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-        }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
 
-        /* 4. INTERACTIVE PILLARS SECTION */
-        .section {
-            padding: 100px 10%;
-            border-bottom: 1px solid #EEE;
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .section-title h2 { font-size: 42px; color: var(--primary-green); margin-bottom: 10px; }
-        .section-title .divider { 
-            width: 60px; height: 4px; background: var(--accent-green); margin: 0 auto; 
-        }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
 
-        .pillar-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-        .pillar-card {
-            background: var(--light-mint);
-            padding: 40px 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-        .pillar-card:hover {
-            transform: translateY(-10px);
-            background: var(--primary-green);
-            color: white;
-        }
-        .pillar-card i { font-size: 40px; margin-bottom: 20px; color: var(--accent-green); }
-        .pillar-card:hover i { color: var(--white); }
-        .pillar-card h3 { font-size: 20px; margin-bottom: 15px; }
-        .pillar-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: var(--transition);
-            font-size: 15px;
-            text-align: left;
-            opacity: 0;
-        }
-        .pillar-card.active .pillar-details {
-            max-height: 200px;
-            opacity: 1;
-            margin-top: 20px;
-        }
+    .hero {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 28px;
+      padding: 30px;
+    }
 
-        /* 5. TABBED STRATEGY DETAILS */
-        .strategy-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
-        }
-        .tab-btn {
-            padding: 15px 30px;
-            border: 2px solid var(--primary-green);
-            background: transparent;
-            color: var(--primary-green);
-            font-weight: bold;
-            cursor: pointer;
-            transition: var(--transition);
-            border-radius: 50px;
-        }
-        .tab-btn.active {
-            background: var(--primary-green);
-            color: white;
-        }
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        .tab-content.active {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
+    .avatar-wrap {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #e5e7eb;
+      min-height: 360px;
+    }
 
-        /* 6. INTERACTIVE DATA TABLE */
-        .outcome-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 10px;
-        }
-        .outcome-table tr {
-            background: #F9FBFB;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .outcome-table tr:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            background: var(--light-mint);
-        }
-        .outcome-table td {
-            padding: 25px;
-            border-top: 1px solid #EEE;
-            border-bottom: 1px solid #EEE;
-        }
-        .outcome-table td:first-child {
-            border-left: 5px solid var(--primary-green);
-            font-weight: bold;
-            width: 30%;
-        }
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-        /* 7. FOOTER & CTA */
-        .cta-section {
-            background: var(--primary-green);
-            color: white;
-            padding: 80px 10%;
-            text-align: center;
-        }
-        .btn-main {
-            padding: 18px 40px;
-            background: var(--accent-green);
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 30px;
-            transition: var(--transition);
-        }
-        .btn-main:hover {
-            background: #00897B;
-            transform: scale(1.05);
-        }
+    .name {
+      margin: 6px 0 0;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
 
-        /* KEYFRAMES */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
+    .role {
+      margin: 6px 0 16px;
+      color: var(--primary);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
 
-        /* RESPONSIVE */
-        @media (max-width: 992px) {
-            .pillar-grid { grid-template-columns: 1fr 1fr; }
-            .tab-content.active { grid-template-columns: 1fr; }
-        }
-    </style>
+    .intro {
+      margin: 0;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .meta {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .meta-item {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-size: 0.95rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.78rem;
+      color: #475569;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .section {
+      padding: 24px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 1.15rem;
+    }
+
+    .timeline {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline li {
+      border-left: 3px solid #c7d2fe;
+      padding-left: 12px;
+      line-height: 1.5;
+    }
+
+    .timeline b {
+      color: var(--primary);
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.9rem;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skills span {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .stats {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 860px) {
+      .hero, .content {
+        grid-template-columns: 1fr;
+      }
+
+      .avatar-wrap {
+        max-width: 320px;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
+  <main class="container">
+    <section class="card hero">
+      <div class="avatar-wrap">
+        <img
+          class="avatar"
+          src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80"
+          alt="정장 차림의 프로필 사진"
+        />
+      </div>
+      <div>
+        <p style="margin:0;color:#64748b;font-size:.9rem;font-weight:700;">PROFILE</p>
+        <h1 class="name">김민준</h1>
+        <p class="role">전략기획 본부장 · Business Strategy Lead</p>
+        <p class="intro">
+          데이터 기반 경영전략 수립과 신사업 발굴을 이끄는 전략 전문가입니다.
+          제약·헬스케어 산업에서 12년 이상 시장 분석, 포트폴리오 최적화,
+          조직 리더십을 수행하며 성과 중심의 프로젝트를 주도했습니다.
+        </p>
 
-    <!-- NAVIGATION -->
-    <nav id="navbar">
-        <div class="nav-logo" onclick="window.scrollTo(0,0)">
-            <i class="fa-solid fa-compass"></i> PHARMA STRATEGY
+        <div class="meta">
+          <div class="meta-item"><strong>이메일</strong>minjun.kim@company.com</div>
+          <div class="meta-item"><strong>연락처</strong>010-1234-5678</div>
+          <div class="meta-item"><strong>소속</strong>ABC Pharma 전략기획실</div>
+          <div class="meta-item"><strong>근무지</strong>서울, 대한민국</div>
         </div>
-        <div class="nav-links">
-            <a href="#summary">Summary</a>
-            <a href="#details">Strategy</a>
-            <a href="#outcomes">Outcomes</a>
-            <a href="#action">Action</a>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <header class="hero">
-        <h1>Sustainable & Profitable Growth</h1>
-        <p>A transformative interactive roadmap to drive execution excellence and structural profitability in the Korean pharmaceutical market.</p>
-        <div class="scroll-indicator" onclick="document.getElementById('summary').scrollIntoView()">
-            <i class="fa-solid fa-chevron-down fa-2x"></i>
-        </div>
-    </header>
-
-    <!-- SECTION 1: INTERACTIVE PILLARS -->
-    <section class="section" id="summary">
-        <div class="section-title">
-            <h2>The Four Strategic Pillars</h2>
-            <p>Click each pillar to explore the core strategic components.</p>
-            <div class="divider"></div>
-        </div>
-        
-        <div class="pillar-grid">
-            <div class="pillar-card" onclick="togglePillar(this)">
-                <i class="fa-solid fa-engine-warning"></i>
-                <h3>Growth Engine</h3>
-                <div class="pillar-details">
-                    <ul>
-                        <li>P&R Strategy Optimization</li>
-                        <li>Niche Asset In-licensing</li>
-                        <li>AI-driven Cost Discipline</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="pillar-card" onclick="togglePillar(this)">
-                <i class="fa-solid fa-rocket"></i>
-                <h3>Launch Excellence</h3>
-                <div class="pillar-details">
-                    <ul>
-                        <li>Shared KPI Governance</li>
-                        <li>Early Stakeholder Mapping</li>
-                        <li>Investigator Advocacy</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="pillar-card" onclick="togglePillar(this)">
-                <i class="fa-solid fa-users-gear"></i>
-                <h3>Unified Culture</h3>
-                <div class="pillar-details">
-                    <ul>
-                        <li>"One Identity" Initiative</li>
-                        <li>Aligned Cross-BU Incentives</li>
-                        <li>Integrated Customer Model</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="pillar-card" onclick="togglePillar(this)">
-                <i class="fa-solid fa-user-tie"></i>
-                <h3>Lean Leadership</h3>
-                <div class="pillar-details">
-                    <ul>
-                        <li>Hands-on GM Fieldwork</li>
-                        <li>Continuous Coaching OJT</li>
-                        <li>Digital Footprint Expansion</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <!-- SECTION 2: TABBED STRATEGY DETAILS -->
-    <section class="section" id="details" style="background: #FBFDFD;">
-        <div class="section-title">
-            <h2>Strategy Deep Dive</h2>
-            <div class="divider"></div>
+    <section class="content">
+      <article class="card section">
+        <h2>주요 경력</h2>
+        <ul class="timeline">
+          <li>
+            <b>2021 - 현재 | ABC Pharma</b>
+            전략기획 본부장으로 전사 중장기 성장 전략 수립 및 실행 관리
+          </li>
+          <li>
+            <b>2017 - 2021 | D Health Group</b>
+            사업개발 팀장으로 국내외 파트너십 및 M&A 검토 프로젝트 리딩
+          </li>
+          <li>
+            <b>2012 - 2017 | K Consulting</b>
+            헬스케어 섹터 컨설턴트로 시장 진입 전략 및 운영 혁신 수행
+          </li>
+        </ul>
+      </article>
+
+      <article class="card section">
+        <h2>핵심 역량</h2>
+        <div class="skills">
+          <span>Corporate Strategy</span>
+          <span>Portfolio Management</span>
+          <span>Commercial Excellence</span>
+          <span>Financial Modeling</span>
+          <span>Negotiation</span>
+          <span>Leadership</span>
         </div>
 
-        <div class="strategy-tabs">
-            <button class="tab-btn active" onclick="switchTab('growth')">Profitable Growth</button>
-            <button class="tab-btn" onclick="switchTab('execution')">Execution Excellence</button>
-            <button class="tab-btn" onclick="switchTab('synergy')">Organizational Synergy</button>
+        <div class="stats">
+          <div class="stat"><strong>12+</strong>업계 경력(년)</div>
+          <div class="stat"><strong>35</strong>완료 프로젝트</div>
+          <div class="stat"><strong>8</strong>리딩 팀 규모</div>
         </div>
-
-        <!-- Tab 1: Growth -->
-        <div id="growth" class="tab-content active">
-            <div class="card">
-                <h3>Top-line Expansion</h3>
-                <p>Focusing on high-value asset capture and rapid hospital listing.</p>
-                <ul>
-                    <li>Securing niche assets from global pipeline.</li>
-                    <li>Listing in 47 key hospitals within 6 months.</li>
-                    <li>Optimizing partner pricing adequacy.</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h3>Bottom-line Discipline</h3>
-                <p>Structural margin improvement via AI and cost control.</p>
-                <ul>
-                    <li>Aggressive AI adoption for agency cost reduction.</li>
-                    <li>Rigorous DSO & Inventory management.</li>
-                    <li>GM-led fixed cost optimization.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Tab 2: Execution -->
-        <div id="execution" class="tab-content">
-            <div class="card">
-                <h3>Market Readiness</h3>
-                <ul>
-                    <li>Early engagement for SoC positioning.</li>
-                    <li>Scenario-based P&R communication strategy.</li>
-                    <li>MA & RA team alignment on critical paths.</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h3>Commercial Activation</h3>
-                <ul>
-                    <li>Investigator-led prescribing experience sharing.</li>
-                    <li>Full internal SFE training before Launch.</li>
-                    <li>Real-world evidence capture from day 1.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Tab 3: Synergy -->
-        <div id="synergy" class="tab-content">
-            <div class="card">
-                <h3>Cultural Alignment</h3>
-                <ul>
-                    <li>Unified corporate name at all touchpoints.</li>
-                    <li>Flat structure with role-based rewards.</li>
-                    <li>Integrated town halls and newsletters.</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h3>KPI Integration</h3>
-                <ul>
-                    <li>50:50 KPI split for GM across Business Units.</li>
-                    <li>Collaborative KPIs for 100% of employees.</li>
-                    <li>Joint performance evaluation sessions.</li>
-                </ul>
-            </div>
-        </div>
+      </article>
     </section>
-
-    <!-- SECTION 3: OUTCOME DASHBOARD -->
-    <section class="section" id="outcomes">
-        <div class="section-header" style="text-align: center; margin-bottom: 50px;">
-            <h2>Outcome Matrix</h2>
-            <p>Hover over items to see the strategic impact.</p>
-        </div>
-
-        <table class="outcome-table">
-            <tr>
-                <td>Accelerated Revenue</td>
-                <td>Sustained expansion driven by continuous launches and Korea-led pipeline capture.</td>
-            </tr>
-            <tr>
-                <td>Profitability Improvement</td>
-                <td>Structural margin improvement through GM discipline and AI efficiency.</td>
-            </tr>
-            <tr>
-                <td>Launch Predictability</td>
-                <td>Reduced time-to-market through early MA readiness and disciplined governance.</td>
-            </tr>
-            <tr>
-                <td>Organizational Synergy</td>
-                <td>Quantified cost savings and topline uplift from integrated coverage.</td>
-            </tr>
-            <tr>
-                <td>Lean Operating Model</td>
-                <td>Scalable affiliate model powered by hands-on leadership and digital tools.</td>
-            </tr>
-        </table>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section class="cta-section" id="action">
-        <h2>Ready to Implement?</h2>
-        <p>Download the full implementation toolkit and project trackers to start the transformation.</p>
-        <a href="#" class="btn-main">GET IMPLEMENTATION KIT</a>
-    </header>
-
-    <footer>
-        &copy; 2024 PHARMA STRATEGY | PRIVATE & CONFIDENTIAL PORTAL
-    </footer>
-
-    <script>
-        // 1. Pillar Card Toggle
-        function togglePillar(card) {
-            const isActive = card.classList.contains('active');
-            document.querySelectorAll('.pillar-card').forEach(c => c.classList.remove('active'));
-            if (!isActive) card.classList.add('active');
-        }
-
-        // 2. Tab Switching Logic
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // 3. Navbar Scroll Effect
-        window.onscroll = function() {
-            const nav = document.getElementById('navbar');
-            if (window.pageYOffset > 50) {
-                nav.style.height = "60px";
-                nav.style.backgroundColor = "rgba(0, 77, 64, 1)";
-            } else {
-                nav.style.height = "70px";
-                nav.style.backgroundColor = "rgba(0, 77, 64, 0.95)";
-            }
-        };
-    </script>
-
+  </main>
 </body>
 </html>
